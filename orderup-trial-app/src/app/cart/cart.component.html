@@ -1,0 +1,11 @@
+<div>
+  <div class="card-header">
+    <h6 style="text-align: center">Cart</h6>
+  </div>
+  <div class="card" *ngFor="let product of products">
+
+    <div class="card-body">
+      {{product.name}}  <button (click)="removeCart(product.id)">Remove</button>
+    </div>
+  </div>
+</div>
