@@ -1,1 +1,25 @@
-<router-outlet></router-outlet>
+
+<div class="toolbar" role="banner">
+  <app-navigation [categories]="categories" [activeCategoryId]="categoryId" [theme]="theme"></app-navigation>
+</div>
+<div class="content" role="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-xs-12" *ngIf="isSideNavShown">
+        <app-left-navigation [categories]="categories" [activeCategoryId]="categoryId"  [theme]="theme"></app-left-navigation>
+      </div>
+      <div [ngClass]="{'col-lg-6': isSideNavShown, 'col-lg-9': !isSideNavShown}">
+      <router-outlet></router-outlet>
+      </div>
+      <div class="col-lg-3 col-md-6 col-xs-12">
+        <app-cart></app-cart>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <app-footer [theme]="theme"></app-footer>
+    <select  (change)="setTheme($event.target.value)">
+    <option *ngFor="let t of themes" [value]="t.store_id" [selected]="t.store_id === storeId">{{t.business_name}}</option>
+    </select>
+  </footer>
+</div>

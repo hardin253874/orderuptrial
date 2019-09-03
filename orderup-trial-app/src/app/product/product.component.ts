@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HomeService } from '../home/home.service';
+import { DataService } from '../services/data.service';
 import { theme } from '../models/theme';
 import { category } from '../models/category';
 import {product} from '../models/product';
 import { sizes} from '../models/sizes';
 import { CartService } from '../cart/cart.service';
+import {AppComponent} from '../app.component';
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -15,8 +17,9 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private homeService: HomeService,
-    private cartService: CartService
+    private dataService: DataService,
+    private cartService: CartService,
+    private rootComponent: AppComponent
   ) { }
   menuData: any;
   theme: theme;
@@ -29,18 +32,15 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.productId = parseInt(params.get('productId'));
+      this.rootComponent.showSideNav();
       this.getData();
     });
   }
 
   private getData(){
-    this.homeService.loadMenuData().subscribe((data: any) =>{
+    this.dataService.loadMenuData().subscribe((data: any) =>{
       this.menuData = data;
       this.buildMenus();
-    });
-
-    this.homeService.loadThemeData().subscribe((data: any) =>{
-      this.theme = data as theme;
     });
   }
 
@@ -61,6 +61,7 @@ export class ProductComponent implements OnInit {
           if (product.id === that.productId){
             that.currentProduct = product;
             that.categoryId = that.currentProduct.category_id;
+            that.rootComponent.setCategory(that.categoryId);
           }
           that.products.push(product);
         }

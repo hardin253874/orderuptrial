@@ -1,39 +1,19 @@
-<div class="toolbar" role="banner">
-  <app-navigation [categories]="categories" [activeCategoryId]="categoryId" [theme]="theme"></app-navigation>
-</div>
-<div class="content" role="main">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-3 col-md-3 col-xs-12">
-        <app-left-navigation [categories]="categories" [activeCategoryId]="categoryId"></app-left-navigation>
-      </div>
-      <div class="col-lg-6 col-md-6 col-xs-12">
-        <div *ngIf="currentCategory">
+<div *ngIf="currentCategory">
+  <div class="card">
+    <div class="card-header">
+      <h6 style="text-align: center">{{currentCategory.name}}</h6>
+      <div class="row" *ngFor="let products of getProducts(currentCategory.products) | pairs">
+        <div class="col-lg-6" *ngFor="let product of products" >
           <div class="card">
-            <div class="card-header">
-              <h6 style="text-align: center">{{currentCategory.name}}</h6>
-              <div class="row" *ngFor="let products of getProducts(currentCategory.products) | pairs">
-                <div class="col-lg-6" *ngFor="let product of products" >
-                  <div class="card">
-                    <div *ngIf="product.images && product.images.low_res">
-                      <img src="{{product.images.low_res}}">
-                    </div>
-                    <a href="/product/{{product.id}}">{{product.name}}</a>
-                    <p>{{product.description}}</p>
-                    <p>{{getPrice(product.sizes) | currency}}</p>
-                  </div>
-                </div>
-              </div>
+            <div *ngIf="product.images && product.images.low_res">
+              <img src="{{product.images.low_res}}">
             </div>
+            <a [routerLink]="['/product', product.id]">{{product.name}}</a>
+            <p>{{product.description}}</p>
+            <p>{{getPrice(product.sizes) | currency}}</p>
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-md-6 col-xs-12">
-        <app-cart></app-cart>
-      </div>
     </div>
   </div>
-  <footer>
-    <app-footer [theme]="theme"></app-footer>
-  </footer>
 </div>

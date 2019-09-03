@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from './home.service';
+import { DataService } from '../services/data.service';
 import { theme } from '../models/theme';
 import { category } from '../models/category';
 import {product} from '../models/product';
 import { uploaded } from '../models/uploaded';
 import { images } from '../models/images';
 import { sizes } from '../models/sizes';
+import {AppComponent} from '../app.component';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -14,7 +16,8 @@ import { sizes } from '../models/sizes';
 export class HomeComponent implements OnInit {
 
   constructor(
-    private homeService: HomeService
+    private dataService: DataService,
+    private rootComponent: AppComponent
   ) { }
 
   menuData: any;
@@ -22,14 +25,14 @@ export class HomeComponent implements OnInit {
   categories: category[];
   products: product[];
   ngOnInit() {
-    this.homeService.loadMenuData().subscribe((data: any) =>{
+
+    this.rootComponent.hideSideNav();
+
+    this.dataService.loadMenuData().subscribe((data: any) =>{
       this.menuData = data;
       this.buildMenus();
     });
 
-    this.homeService.loadThemeData().subscribe((data: any) =>{
-      this.theme = data as theme;
-    });
   }
 
   private buildMenus() {

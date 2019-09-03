@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent, HomeService, AngularHomeComponent } from './home/index';
+import { DataService} from './services/data.service';
 import { NavigationComponent, LeftNavigationComponent, NavigationService } from './navigation/index';
 import { FooterComponent, LayoutService} from './layout/index';
 import { CartComponent, CartService } from './cart/index';
@@ -33,7 +34,8 @@ import { PairsPipe} from './pipes/index';
     HomeService,
     NavigationService,
     LayoutService,
-    CartService
+    CartService,
+    DataService
   ],
   bootstrap: [AppComponent]
 })

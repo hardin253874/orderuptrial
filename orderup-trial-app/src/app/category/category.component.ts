@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HomeService } from '../home/home.service';
+import { DataService } from '../services/data.service';
 import { theme } from '../models/theme';
 import { category } from '../models/category';
 import {product} from '../models/product';
 import { sizes} from '../models/sizes';
+import {AppComponent} from '../app.component';
+
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
@@ -14,7 +16,8 @@ export class CategoryComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private homeService: HomeService
+    private dataService: DataService,
+    private rootComponent: AppComponent
   ) { }
 
   menuData: any;
@@ -26,19 +29,22 @@ export class CategoryComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.categoryId = parseInt(params.get('categoryId'));
+      this.rootComponent.showSideNav();
+      this.rootComponent.setCategory(this.categoryId);
       this.getData();
     });
   }
 
   private getData() {
-    this.homeService.loadMenuData().subscribe((data: any) =>{
+
+
+
+
+    this.dataService.loadMenuData().subscribe((data: any) =>{
       this.menuData = data;
       this.buildMenus();
     });
 
-    this.homeService.loadThemeData().subscribe((data: any) =>{
-      this.theme = data as theme;
-    });
   }
 
   private buildMenus() {

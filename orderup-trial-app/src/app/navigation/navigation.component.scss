@@ -25,10 +25,13 @@
   margin-right: 5px;
   padding-left:5px;
   padding-right: 5px;
-  background:  #6d7fcc;
+  background: #7386D5;
   color: #fff;
 }
-
+.navbar-nav > li.active > a, a[aria-expanded="true"] {
+  color: yellow;
+  background: #6d7fcc;
+}
 
 
 .navbar-nav > li > a {
@@ -39,8 +42,13 @@
 
 .navbar {
   min-height: 80px;
-  background:  #6d7fcc;
+  background: #7386D5;
 }
+
+.navbar1 {
+  background : #003300 !important;
+}
+
 
 .navbar-brand {
   padding: 0 15px;
